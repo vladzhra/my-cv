@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vlad Zaharia - Expert React Native | Staff Engineer Mobile</title>
+    <style>
+      :root {
+        --primary-color: #7361fb; /* Couleur Mistral AI */
+        --secondary-color: #0f172a;
+        --accent-color: #e879f9;
+        --light-bg: #f8fafc;
+        --text-color: #1e293b;
+        --light-text: #64748b;
+      }
+
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        line-height: 1.6;
+        color: var(--text-color);
+        margin: 0;
+        padding: 0;
+        background-color: white;
+      }
+
+      .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+
+      .header {
+        background: linear-gradient(
+          135deg,
+          var(--secondary-color),
+          var(--primary-color)
+        );
+        color: white;
+        padding: 40px 40px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .header::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.1) 0%,
+          rgba(255, 255, 255, 0) 70%
+        );
+        border-radius: 50%;
+        transform: translate(30%, -30%);
+      }
+
+      .profile-img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        border: 4px solid rgba(255, 255, 255, 0.2);
+        margin-right: 40px;
+        object-fit: cover;
+      }
+
+      .header-content {
+        display: flex;
+        align-items: center;
+        position: relative;
+        z-index: 2;
+      }
+
+      .header-text h1 {
+        font-size: 48px;
+        margin: 0 0 10px 0;
+        font-weight: 800;
+        letter-spacing: 1px;
+        background: linear-gradient(to right, #fff, #f0f0f0);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .header-text h2 {
+        font-size: 22px;
+        margin: 0;
+        font-weight: 500;
+        opacity: 0.95;
+        letter-spacing: 0.5px;
+        margin-bottom: 15px;
+      }
+
+      .tagline {
+        font-size: 18px;
+        background-color: rgba(255, 255, 255, 0.15);
+        padding: 10px 20px;
+        border-radius: 30px;
+        display: inline-block;
+        margin-top: 15px;
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .skill {
+        display: flex;
+        align-items: center;
+      }
+
+      .skill img {
+        transition: transform 0.3s ease;
+      }
+
+      .skill:hover img {
+        transform: scale(1.2);
+      }
+
+      .content {
+        display: flex;
+        background: var(--light-bg);
+      }
+
+      .sidebar {
+        width: 35%;
+        background-color: #f1f5f9;
+        padding: 30px;
+        border-right: 1px solid rgba(0, 0, 0, 0.05);
+      }
+
+      .main {
+        width: 65%;
+        padding: 30px 40px;
+        background: white;
+      }
+
+      a[href^="mailto"]:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(115, 97, 251, 0.6);
+      }
+
+      .section-title {
+        color: var(--primary-color);
+        text-transform: uppercase;
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 20px;
+        position: relative;
+        padding-bottom: 10px;
+        display: flex;
+        align-items: center;
+      }
+
+      .section-title::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 50px;
+        height: 3px;
+        background-color: var(--primary-color);
+      }
+
+      .section-title i {
+        margin-right: 10px;
+        font-size: 22px;
+      }
+
+      .contact-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+
+      .contact-icon {
+        width: 36px;
+        height: 36px;
+        background-color: var(--primary-color);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 15px;
+        color: white;
+        box-shadow: 0 3px 10px rgba(115, 97, 251, 0.3);
+      }
+
+      .skills-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      .skill {
+        background-color: white;
+        border-radius: 8px;
+        padding: 10px 16px;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+        border-left: 3px solid transparent;
+      }
+
+      .skill.primary {
+        border-left-color: var(--primary-color);
+        font-weight: 600;
+      }
+
+      .skill:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+      }
+
+      .skill img {
+        width: 20px;
+        height: 20px;
+        margin-right: 8px;
+      }
+
+      .experience-item {
+        margin-bottom: 35px;
+        position: relative;
+        padding-left: 25px;
+      }
+
+      .experience-item::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background-color: #e2e8f0;
+      }
+
+      .experience-item::after {
+        content: "";
+        position: absolute;
+        left: -5px;
+        top: 0;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background-color: var(--primary-color);
+        border: 3px solid white;
+        box-shadow: 0 0 0 1px var(--primary-color);
+      }
+
+      .experience-title {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+        align-items: center;
+      }
+
+      .experience-title h3 {
+        font-size: 18px;
+        font-weight: 600;
+        margin: 0;
+        color: var(--text-color);
+      }
+
+      .experience-company {
+        font-weight: 500;
+        color: var(--primary-color);
+        margin-bottom: 5px;
+        display: flex;
+        align-items: center;
+      }
+
+      .experience-date {
+        color: var(--light-text);
+        font-size: 14px;
+        background-color: var(--light-bg);
+        padding: 4px 10px;
+        border-radius: 12px;
+        display: inline-block;
+        font-weight: 500;
+      }
+
+      .experience-details {
+        margin-top: 10px;
+      }
+
+      .experience-details ul {
+        margin-top: 10px;
+        padding-left: 20px;
+      }
+
+      .experience-details li {
+        margin-bottom: 8px;
+        position: relative;
+      }
+
+      .language-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        align-items: center;
+      }
+
+      .language-name {
+        display: flex;
+        align-items: center;
+      }
+
+      .language-level {
+        height: 8px;
+        width: 100px;
+        background-color: #e2e8f0;
+        border-radius: 4px;
+        overflow: hidden;
+      }
+
+      .language-progress {
+        height: 100%;
+        background-color: var(--primary-color);
+      }
+
+      .strength-item {
+        background-color: white;
+        border-radius: 20px;
+        padding: 8px 16px;
+        display: inline-block;
+        margin-right: 8px;
+        margin-bottom: 8px;
+        font-size: 14px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+      }
+
+      .strength-item:hover {
+        background-color: var(--primary-color);
+        color: white;
+        transform: translateY(-2px);
+      }
+
+      .about-me {
+        padding: 25px;
+        background-color: rgba(115, 97, 251, 0.05);
+        border-radius: 12px;
+        margin-bottom: 35px;
+        border-left: 4px solid var(--primary-color);
+        position: relative;
+      }
+
+      .about-me::before {
+        content: "";
+        position: absolute;
+        top: -10px;
+        left: 10px;
+        font-size: 60px;
+        color: rgba(115, 97, 251, 0.15);
+        font-family: serif;
+      }
+
+      .mistral-section {
+        padding: 25px;
+        background-color: #f8fafc;
+        border-radius: 12px;
+        margin-top: 35px;
+        position: relative;
+        border: 1px solid #e2e8f0;
+      }
+
+      .mistral-section h2 {
+        margin-top: 0;
+      }
+
+      .mistral-logo {
+        height: 30px;
+        margin-right: 15px;
+      }
+
+      /* Animation au survol */
+      .contact-item:hover .contact-icon {
+        transform: scale(1.1);
+        transition: transform 0.3s ease;
+      }
+
+      /* Badge "IA" */
+      .ai-badge {
+        display: inline-block;
+        background: linear-gradient(135deg, #7361fb, #e879f9);
+        color: white;
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 500;
+        margin-left: 10px;
+        vertical-align: middle;
+      }
+
+      .key-achievement {
+        background-color: rgba(115, 97, 251, 0.08);
+        border-radius: 8px;
+        padding: 10px 15px;
+        margin-top: 15px;
+        border-left: 3px solid var(--primary-color);
+      }
+
+      .key-achievement h4 {
+        margin: 0 0 5px 0;
+        color: var(--primary-color);
+        font-size: 16px;
+      }
+
+      @media (max-width: 768px) {
+        .content {
+          flex-direction: column;
+        }
+
+        .sidebar,
+        .main {
+          width: 100%;
+        }
+      }
+    </style>
+    <script
+      src="https://kit.fontawesome.com/a076d05399.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="header-content">
+          <img
+            src="https://media.licdn.com/dms/image/v2/D4E03AQEMkc4nnuOnKw/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1714380351976?e=2147483647&v=beta&t=7wc0XYBJJy-Ps6-3-IFCisURCEZpYDbTdLeTywir9GQ"
+            alt="Photo de profil de Vlad Zaharia"
+            class="profile-img"
+          />
+          <div class="header-text">
+            <h1>VLAD ZAHARIA</h1>
+            <h2>STAFF ENGINEER MOBILE | EXPERT REACT NATIVE</h2>
+            <div class="tagline">
+              Passionné par l'IA & le Développement Mobile — Candidat pour
+              Mistral AI
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="sidebar">
+          <div class="section">
+            <h2 class="section-title">Contact</h2>
+            <div class="contact-item">
+              <div class="contact-icon">📱</div>
+              <div>06 68 20 80 16</div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">📧</div>
+              <div>
+                <a
+                  href="mailto:zahariavlad15@outlook.com"
+                  style="color: inherit; text-decoration: none"
+                >
+                  zahariavlad15@outlook.com
+                </a>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">🔗</div>
+              <div>
+                <a
+                  href="https://www.linkedin.com/in/vladzahariaepitech"
+                  target="_blank"
+                  style="color: inherit; text-decoration: none"
+                  >/vladzahariaepitech</a
+                >
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">🌐</div>
+              <div>
+                <a
+                  href="https://github.com/vladzhra"
+                  target="_blank"
+                  style="color: inherit; text-decoration: none"
+                  >github.com/vladzhra</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Section compétences techniques mise à jour avec des icônes -->
+          <div class="section">
+            <h2 class="section-title">Expertise Technique</h2>
+            <div class="skills-container">
+              <div class="skill primary">
+                <img
+                  src="https://cdn4.iconfinder.com/data/icons/logos-3/600/React.js_logo-512.png"
+                  alt="React Native logo"
+                  style="
+                    width: 18px;
+                    height: 18px;
+                    margin-right: 8px;
+                    vertical-align: middle;
+                  "
+                />
+                <strong>React Native</strong>
+              </div>
+              <div class="skill primary">
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png"
+                  alt="JavaScript logo"
+                  style="
+                    width: 18px;
+                    height: 18px;
+                    margin-right: 8px;
+                    vertical-align: middle;
+                  "
+                />
+                <strong>JavaScript</strong>
+              </div>
+              <!-- <div class="skill primary">
+                <img
+                  src="https://cdn.iconscout.com/icon/free/png-256/free-ui-design-2296454-1917337.png"
+                  alt="UX/UI logo"
+                  style="
+                    width: 18px;
+                    height: 18px;
+                    margin-right: 8px;
+                    vertical-align: middle;
+                  "
+                />
+                <strong>UX/UI Mobile</strong>
+              </div>
+              <div class="skill primary">
+                <img
+                  src="https://cdn.iconscout.com/icon/free/png-256/free-artificial-intelligence-ai-brain-3992942-3306480.png"
+                  alt="AI logo"
+                  style="
+                    width: 18px;
+                    height: 18px;
+                    margin-right: 8px;
+                    vertical-align: middle;
+                  "
+                />
+                <strong>Intégration IA</strong>
+              </div> -->
+              <div class="skill primary">
+                <img
+                  src="https://cdn.iconscout.com/icon/free/png-256/free-firebase-3521427-2944871.png"
+                  alt="Firebase logo"
+                  style="
+                    width: 18px;
+                    height: 18px;
+                    margin-right: 8px;
+                    vertical-align: middle;
+                  "
+                />
+                <strong>Firebase</strong>
+              </div>
+              <div class="skill primary">
+                <img
+                  src="https://cdn.iconscout.com/icon/free/png-256/free-vue-282497.png"
+                  alt="Vue.js logo"
+                  style="
+                    width: 18px;
+                    height: 18px;
+                    margin-right: 8px;
+                    vertical-align: middle;
+                  "
+                />
+                <strong>Vue.js</strong>
+              </div>
+              <div class="skill primary">
+                <img
+                  src="https://cdn.iconscout.com/icon/free/png-256/free-python-3521655-2945099.png"
+                  alt="Python logo"
+                  style="
+                    width: 18px;
+                    height: 18px;
+                    margin-right: 8px;
+                    vertical-align: middle;
+                  "
+                />
+                <strong>Python</strong>
+              </div>
+              <div class="skill primary">
+                <img
+                  src="https://cdn4.iconfinder.com/data/icons/logos-3/600/React.js_logo-512.png"
+                  alt="React.js logo"
+                  style="
+                    width: 18px;
+                    height: 18px;
+                    margin-right: 8px;
+                    vertical-align: middle;
+                  "
+                />
+                <strong>React.js</strong>
+              </div>
+              <div class="skill">
+                <img
+                  src="https://cdn.iconscout.com/icon/free/png-256/free-html5-40-1175193.png"
+                  alt="HTML/CSS logo"
+                  style="
+                    width: 18px;
+                    height: 18px;
+                    margin-right: 8px;
+                    vertical-align: middle;
+                  "
+                />
+                HTML/CSS
+              </div>
+              <div class="skill">
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/3/32/C%2B%2B_logo.png"
+                  alt="C/C++ logo"
+                  style="
+                    width: 18px;
+                    height: 18px;
+                    margin-right: 8px;
+                    vertical-align: middle;
+                  "
+                />
+                C/C++
+              </div>
+              <div class="skill">
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Docker_%28container_engine%29_logo_%28cropped%29.png"
+                  alt="Docker logo"
+                  style="
+                    width: 29px;
+                    height: 18px;
+                    margin-right: 8px;
+                    vertical-align: middle;
+                  "
+                />
+                Docker
+              </div>
+              <div class="skill">
+                <img
+                  src="https://cdn.iconscout.com/icon/free/png-256/free-aws-1869025-1583149.png"
+                  alt="AWS logo"
+                  style="
+                    width: 18px;
+                    height: 18px;
+                    margin-right: 8px;
+                    vertical-align: middle;
+                  "
+                />
+                AWS
+              </div>
+              <div class="skill">
+                <img
+                  src="https://cdn.iconscout.com/icon/free/png-256/free-azure-190760.png"
+                  alt="Azure logo"
+                  style="
+                    width: 18px;
+                    height: 18px;
+                    margin-right: 8px;
+                    vertical-align: middle;
+                  "
+                />
+                Azure
+              </div>
+              <div class="skill">
+                <img
+                  src="https://cdn.iconscout.com/icon/premium/png-256-thumb/ci-cd-5066396-4207354.png"
+                  alt="CI/CD logo"
+                  style="
+                    width: 18px;
+                    height: 18px;
+                    margin-right: 8px;
+                    vertical-align: middle;
+                  "
+                />
+                CI/CD
+              </div>
+              <div class="skill">
+                <img
+                  src="https://cdn.iconscout.com/icon/free/png-256/free-git-225996.png"
+                  alt="Git Flow logo"
+                  style="
+                    width: 18px;
+                    height: 18px;
+                    margin-right: 8px;
+                    vertical-align: middle;
+                  "
+                />
+                Git Flow
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <h2 class="section-title">Langues</h2>
+            <div class="language-item">
+              <div class="language-name">
+                <div>
+                  <img
+                    src="https://images.emojiterra.com/google/noto-emoji/unicode-16.0/color/1024px/1f1eb-1f1f7.png"
+                    alt="Drapeau français"
+                    style="
+                      width: 20px;
+                      height: auto;
+                      margin-right: 8px;
+                      vertical-align: middle;
+                    "
+                  />
+                  Français
+                </div>
+              </div>
+              <div class="language-level">
+                <div class="language-progress" style="width: 100%"></div>
+              </div>
+            </div>
+            <div class="language-item">
+              <div class="language-name">
+                <div>
+                  <img
+                    src="https://images.emojiterra.com/google/noto-emoji/unicode-15/color/512px/1f1ec-1f1e7.png"
+                    alt="Drapeau anglais"
+                    style="
+                      width: 20px;
+                      height: auto;
+                      margin-right: 8px;
+                      vertical-align: middle;
+                    "
+                  />
+                  Anglais
+                </div>
+              </div>
+              <div class="language-level">
+                <div class="language-progress" style="width: 80%"></div>
+              </div>
+            </div>
+            <div class="language-item">
+              <div class="language-name">
+                <div>
+                  <img
+                    src="https://images.emojiterra.com/google/noto-emoji/unicode-16.0/color/1024px/1f1f7-1f1f4.png"
+                    alt="Drapeau roumain"
+                    style="
+                      width: 20px;
+                      height: auto;
+                      margin-right: 8px;
+                      vertical-align: middle;
+                    "
+                  />
+                  Roumain
+                </div>
+              </div>
+              <div class="language-level">
+                <div class="language-progress" style="width: 90%"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <h2 class="section-title">Soft Skills</h2>
+            <div>
+              <span class="strength-item">#Leadership</span>
+              <span class="strength-item">#Autonomie</span>
+              <span class="strength-item">#ProblemSolving</span>
+              <span class="strength-item">#CollaborationAgile</span>
+              <span class="strength-item">#MentorTechnique</span>
+              <span class="strength-item">#InnovationProduit</span>
+            </div>
+          </div>
+
+          <div class="section">
+            <h2 class="section-title">Activités</h2>
+            <ul>
+              <li>Formateur en développement mobile (cours hebdomadaires)</li>
+              <li>Bénévole à La Croix-Rouge depuis août 2021</li>
+              <li>
+                Participant au
+                <a
+                  href="https://www.linkedin.com/feed/update/urn:li:activity:6928769026403803136/"
+                  target="_blank"
+                  style="color: inherit"
+                  >Global Azure Bootcamp (2018, 2022)</a
+                >
+              </li>
+              <li>Contributeur actif aux communautés React Native</li>
+              <li>Mentor technique pour les étudiants en informatique</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="main">
+          <div class="about-me">
+            <p>
+              Étudiant en dernière année à Epitech Paris avec une passion
+              profonde pour le développement mobile et l'intelligence
+              artificielle. Je me forme continuellement dans le domaine de l'IA
+              et reste à jour sur les dernières technologies. Avec une
+              expérience avérée en React Native et une solide formation en
+              développement full-stack, j'apporte adaptabilité, engagement pour
+              la qualité et une approche collaborative à chaque projet.
+            </p>
+          </div>
+
+          <div class="section">
+            <h2 class="section-title">Expérience Professionnelle</h2>
+
+            <div class="experience-item">
+              <div class="experience-title">
+                <h3>
+                  Co-fondateur & Lead Engineer
+                  <span class="ai-badge">IA</span>
+                </h3>
+                <div class="experience-date">2024 - Présent</div>
+              </div>
+              <div class="experience-company">TellWell</div>
+              <div class="experience-details">
+                <ul>
+                  <li>
+                    Architecture et développement complet d'une application
+                    React Native intégrant des modèles d'IA avancés
+                  </li>
+                  <li>
+                    Conception et implémentation de l'intégralité du back-end
+                    avec gestion des API, bases de données et infrastructure
+                    cloud
+                  </li>
+                  <li>
+                    Mise en place et maintenance de l'infrastructure Firebase
+                    (Authentication, Firestore, Storage, Cloud Functions) pour
+                    assurer performance et fiabilité
+                  </li>
+                  <li>
+                    Conception d'une interface utilisateur intuitive et
+                    performante avec focus sur l'expérience utilisateur
+                  </li>
+                  <li>
+                    Gestion du cycle complet de développement et déploiement sur
+                    App Store
+                  </li>
+                </ul>
+                <div class="key-achievement">
+                  <h4>Réalisation clé</h4>
+                  <p>
+                    Conception d'une architecture full-stack modulaire
+                    permettant l'intégration fluide de divers modèles d'IA et
+                    une synchronisation efficace avec le back-end Firebase,
+                    offrant une expérience utilisateur cohérente sur différents
+                    appareils mobiles.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="experience-item">
+              <div class="experience-title">
+                <h3>Développeur Full-Stack</h3>
+                <div class="experience-date">2022 - 2025</div>
+              </div>
+              <div class="experience-company">Callr</div>
+              <div class="experience-details">
+                <ul>
+                  <li>
+                    Direction de l'amélioration de l'UX/UI du site et des
+                    interfaces clients
+                  </li>
+                  <li>
+                    Développement et optimisation de composants React
+                    réutilisables à travers les projets
+                  </li>
+                  <li>
+                    Gestion de projets informatiques et supervision de deux
+                    stagiaires Epitech
+                  </li>
+                  <li>Contribution au développement de l'API et du SDK</li>
+                  <li>Technologies utilisées: Docker, JS, Vue.js, et PHP</li>
+                </ul>
+                <div class="key-achievement">
+                  <h4>Réalisation clé</h4>
+                  <p>
+                    Implémentation d'un système complet de topup fees et
+                    traduction intégrale du site en français et espagnol,
+                    améliorant ainsi l'accessibilité et l'expérience utilisateur
+                    à l'international.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="experience-item">
+              <div class="experience-title">
+                <h3>Développeur Full-Stack</h3>
+                <div class="experience-date">2024 (6 mois)</div>
+              </div>
+              <div class="experience-company">
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Rakuten_Global_Brand_Logo.svg/2560px-Rakuten_Global_Brand_Logo.svg.png"
+                  alt="Rakuten Logo"
+                  style="height: 20px; margin-right: 10px"
+                />
+              </div>
+              <div class="experience-details">
+                <ul>
+                  <li>
+                    Contribution majeure au développement du nouveau back office
+                    en équipe internationale Rakuten
+                  </li>
+                  <li>
+                    Développement de composants React performants et responsifs
+                    pour le backoffice
+                  </li>
+                  <li>
+                    Optimisation des performances frontend et réduction des
+                    temps de chargement
+                  </li>
+                  <li>
+                    Mise en place d'une stratégie de tests automatisés (Jest,
+                    React Testing Library)
+                  </li>
+                  <li>
+                    Travail en méthodologie agile avec rituels Scrum quotidiens
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="experience-item">
+              <div class="experience-title">
+                <h3>Développeur Web & Mobile Freelance</h3>
+                <div class="experience-date">2023</div>
+              </div>
+              <div class="experience-company">Code Couture</div>
+              <div class="experience-details">
+                <ul>
+                  <li>
+                    Développement d'applications réactives en utilisant React et
+                    React Native
+                  </li>
+                  <li>
+                    Création du site web
+                    <a
+                      href="https://flh-expertise.com"
+                      target="_blank"
+                      style="color: inherit"
+                      >FLH Expertise</a
+                    >
+                    avec focus sur l'expérience utilisateur
+                  </li>
+                  <li>Optimisation SEO et performances web pour les clients</li>
+                  <li>
+                    Conseil en UX/UI et création d'interfaces utilisateur
+                    intuitives
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <h2 class="section-title">Formation</h2>
+            <div class="experience-item">
+              <div class="experience-title">
+                <h3>Master en Technologies de l'Information</h3>
+                <div class="experience-date">2021 - 2026</div>
+              </div>
+              <div
+                class="experience-company"
+                style="display: flex; align-items: center"
+              >
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/2/2d/Epitech.png"
+                  alt="Logo Epitech"
+                  style="height: 20px; margin-right: 10px"
+                />
+                Epitech Paris
+              </div>
+              <div class="experience-details">
+                <ul>
+                  <li>
+                    Leader d'un EIP (Epitech Innovative Project) inclusif sur 2
+                    ans, dédié aux personnes en situation de handicap mental
+                    pour faciliter leur insertion professionnelle
+                  </li>
+                  <li>
+                    Management d'une équipe de 6 personnes avec méthodologie
+                    agile
+                  </li>
+                  <li>Lead Developer sur plusieurs projets majeurs</li>
+                  <li>Scrum Master pour les projets d'équipe</li>
+                  <li>Cours avancés en IOT (Objets Connectés) et IA</li>
+                </ul>
+                <div class="key-achievement">
+                  <h4>Projet Phare</h4>
+                  <p>
+                    Conception et développement d'une solution technologique
+                    inclusive pour accompagner les personnes avec un handicap
+                    mental (autisme, TDAH) dans leur parcours d'insertion
+                    professionnelle, démontrant un engagement fort pour l'impact
+                    social positif.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mistral-section">
+            <h2 class="section-title">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Mistral_AI_logo_%282025%E2%80%93%29.svg/1200px-Mistral_AI_logo_%282025%E2%80%93%29.svg.png"
+                alt="Logo Mistral AI"
+                class="mistral-logo"
+              />
+              Pourquoi je veux rejoindre Mistral AI
+            </h2>
+            <p>
+              En tant qu'ingénieur mobile passionné par l'IA, je suis
+              particulièrement enthousiaste à l'idée de contribuer au
+              développement de le Chat. Mon expérience dans la création de
+              TellWell m'a permis d'acquérir une expertise approfondie dans
+              l'intégration de modèles d'IA avec des interfaces mobiles
+              intuitives et performantes.
+            </p>
+
+            <p>
+              Je souhaite apporter mes compétences techniques et ma sensibilité
+              UX/UI pour contribuer à l'évolution de cette application en une
+              référence mondiale dans le domaine des assistants IA mobiles.
+            </p>
+
+            <p>
+              Mes expériences en tant que lead developer et mon approche
+              autonome correspondent parfaitement aux valeurs de Mistral AI. Je
+              suis impatient de collaborer avec votre équipe talentueuse pour
+              repousser les limites de ce que l'IA peut offrir sur mobile, en
+              créant des expériences utilisateur à la fois puissantes et
+              accessibles.
+            </p>
+          </div>
+          <!-- Bouton "Me contacter" à ajouter à la fin du CV -->
+          <div style="text-align: center; margin: 40px 0 20px 0">
+            <a
+              href="mailto:zahariavlad15@outlook.com"
+              style="
+                display: inline-block;
+                background: linear-gradient(
+                  135deg,
+                  var(--primary-color),
+                  var(--secondary-color)
+                );
+                color: white;
+                padding: 14px 28px;
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 18px;
+                border-radius: 30px;
+                box-shadow: 0 4px 15px rgba(115, 97, 251, 0.4);
+                transition: all 0.3s ease;
+                border: none;
+                cursor: pointer;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+              "
+            >
+              Me contacter
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
