@@ -413,6 +413,14 @@
         font-size: 16px;
       }
 
+      /* Styles responsives détaillés */
+      @media (max-width: 1024px) {
+        .container {
+          max-width: 100%;
+          border-radius: 0;
+        }
+      }
+
       @media (max-width: 768px) {
         .content {
           flex-direction: column;
@@ -421,13 +429,98 @@
         .sidebar,
         .main {
           width: 100%;
+          box-sizing: border-box;
+        }
+
+        .header-content {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .profile-img {
+          margin-right: 0;
+          margin-bottom: 20px;
+        }
+
+        .header-text h1 {
+          font-size: 36px;
+        }
+
+        .header-text h2 {
+          font-size: 18px;
+        }
+
+        .tagline {
+          font-size: 16px;
+        }
+
+        .experience-title {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .experience-date {
+          margin-top: 8px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .header {
+          padding: 25px 20px;
+        }
+
+        .profile-img {
+          width: 120px;
+          height: 120px;
+        }
+
+        .header-text h1 {
+          font-size: 28px;
+        }
+
+        .header-text h2 {
+          font-size: 16px;
+        }
+
+        .tagline {
+          font-size: 14px;
+          padding: 8px 15px;
+        }
+
+        .sidebar,
+        .main {
+          padding: 20px 15px;
+        }
+
+        .section-title {
+          font-size: 18px;
+        }
+
+        .skill {
+          padding: 8px 12px;
+          font-size: 12px;
+        }
+
+        .strength-item {
+          font-size: 12px;
+          padding: 6px 12px;
+          margin-bottom: 6px;
+        }
+
+        .contact-icon {
+          width: 32px;
+          height: 32px;
+        }
+
+        .language-level {
+          width: 70px;
+        }
+
+        .mistral-section {
+          padding: 20px 15px;
         }
       }
     </style>
-    <script
-      src="https://kit.fontawesome.com/a076d05399.js"
-      crossorigin="anonymous"
-    ></script>
   </head>
   <body>
     <div class="container">
@@ -522,32 +615,6 @@
                 />
                 <strong>JavaScript</strong>
               </div>
-              <!-- <div class="skill primary">
-                <img
-                  src="https://cdn.iconscout.com/icon/free/png-256/free-ui-design-2296454-1917337.png"
-                  alt="UX/UI logo"
-                  style="
-                    width: 18px;
-                    height: 18px;
-                    margin-right: 8px;
-                    vertical-align: middle;
-                  "
-                />
-                <strong>UX/UI Mobile</strong>
-              </div>
-              <div class="skill primary">
-                <img
-                  src="https://cdn.iconscout.com/icon/free/png-256/free-artificial-intelligence-ai-brain-3992942-3306480.png"
-                  alt="AI logo"
-                  style="
-                    width: 18px;
-                    height: 18px;
-                    margin-right: 8px;
-                    vertical-align: middle;
-                  "
-                />
-                <strong>Intégration IA</strong>
-              </div> -->
               <div class="skill primary">
                 <img
                   src="https://cdn.iconscout.com/icon/free/png-256/free-firebase-3521427-2944871.png"
@@ -899,12 +966,13 @@
                   alt="Rakuten Logo"
                   style="height: 20px; margin-right: 10px"
                 />
+                Rakuten
               </div>
               <div class="experience-details">
                 <ul>
                   <li>
                     Contribution majeure au développement du nouveau back office
-                    en équipe internationale Rakuten
+                    en équipe internationale
                   </li>
                   <li>
                     Développement de composants React performants et responsifs
