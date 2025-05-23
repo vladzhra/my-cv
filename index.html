@@ -3,1140 +3,1804 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vlad Zaharia - Expert React Native | Staff Engineer Mobile</title>
+    <title>Vlad Zaharia - Staff Engineer Mobile & Expert React Native</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
     <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
       :root {
-        --primary-color: #7361fb;
-        --secondary-color: #0f172a;
-        --accent-color: #e879f9;
-        --light-bg: #f8fafc;
-        --text-color: #1e293b;
-        --light-text: #64748b;
+        --primary: #6366f1;
+        --primary-dark: #4f46e5;
+        --primary-light: #818cf8;
+        --secondary: #0f172a;
+        --accent: #ec4899;
+        --gray-50: #f9fafb;
+        --gray-100: #f3f4f6;
+        --gray-200: #e5e7eb;
+        --gray-300: #d1d5db;
+        --gray-400: #9ca3af;
+        --gray-500: #6b7280;
+        --gray-600: #4b5563;
+        --gray-700: #374151;
+        --gray-800: #1f2937;
+        --gray-900: #111827;
+        --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --gradient-secondary: linear-gradient(135deg, #667eea 0%, #ec4899 100%);
+        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+          0 10px 10px -5px rgba(0, 0, 0, 0.04);
       }
 
       body {
         font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
-          Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+          sans-serif;
+        background-color: var(--gray-50);
+        color: var(--gray-900);
         line-height: 1.6;
-        color: var(--text-color);
-        margin: 0;
-        padding: 0;
-        background-color: white;
+        overflow-x: hidden;
       }
 
-      .container {
-        max-width: 1000px;
+      /* Navigation */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        z-index: 1000;
+        box-shadow: var(--shadow-sm);
+        transition: all 0.3s ease;
+      }
+
+      nav.scrolled {
+        box-shadow: var(--shadow-md);
+      }
+
+      .nav-container {
+        max-width: 1200px;
         margin: 0 auto;
-        padding: 0;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        border-radius: 12px;
-        overflow: hidden;
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
       }
 
-      .header {
-        background: linear-gradient(
-          135deg,
-          var(--secondary-color),
-          var(--primary-color)
-        );
-        color: white;
-        padding: 40px 40px;
+      .nav-brand {
+        font-size: 1.5rem;
+        font-weight: 700;
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+      }
+
+      .nav-links a {
+        color: var(--gray-600);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s ease;
         position: relative;
-        overflow: hidden;
       }
 
-      .header::after {
+      .nav-links a:hover {
+        color: var(--primary);
+      }
+
+      .nav-links a::after {
         content: "";
         position: absolute;
-        top: 0;
-        right: 0;
-        width: 300px;
-        height: 300px;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--primary);
+        transition: width 0.3s ease;
+      }
+
+      .nav-links a:hover::after {
+        width: 100%;
+      }
+
+      /* Hero Section */
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(
+          135deg,
+          rgba(99, 102, 241, 0.1) 0%,
+          rgba(236, 72, 153, 0.1) 100%
+        );
+        position: relative;
+        overflow: hidden;
+        padding-top: 80px;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 200%;
+        height: 200%;
         background: radial-gradient(
           circle,
-          rgba(255, 255, 255, 0.1) 0%,
-          rgba(255, 255, 255, 0) 70%
+          rgba(99, 102, 241, 0.1) 0%,
+          transparent 50%
         );
-        border-radius: 50%;
-        transform: translate(30%, -30%);
+        animation: float 20s ease-in-out infinite;
       }
 
-      .profile-img {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        border: 4px solid rgba(255, 255, 255, 0.2);
-        margin-right: 40px;
-        object-fit: cover;
+      @keyframes float {
+        0%,
+        100% {
+          transform: translate(0, 0) rotate(0deg);
+        }
+        33% {
+          transform: translate(30px, -30px) rotate(120deg);
+        }
+        66% {
+          transform: translate(-20px, 20px) rotate(240deg);
+        }
       }
 
-      .header-content {
-        display: flex;
+      .hero-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
         align-items: center;
         position: relative;
-        z-index: 2;
+        z-index: 1;
       }
 
-      .header-text h1 {
-        font-size: 48px;
-        margin: 0 0 10px 0;
-        font-weight: 800;
-        letter-spacing: 1px;
-        background: linear-gradient(to right, #fff, #f0f0f0);
+      .hero-text h1 {
+        font-size: 4rem;
+        font-weight: 900;
+        line-height: 1.1;
+        margin-bottom: 1rem;
+        background: var(--gradient-primary);
         -webkit-background-clip: text;
-        background-clip: text;
         -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: fadeInUp 0.8s ease-out;
       }
 
-      .header-text h2 {
-        font-size: 22px;
-        margin: 0;
-        font-weight: 500;
-        opacity: 0.95;
-        letter-spacing: 0.5px;
-        margin-bottom: 15px;
+      .hero-text h2 {
+        font-size: 1.75rem;
+        color: var(--gray-700);
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+        animation: fadeInUp 0.8s ease-out 0.2s both;
       }
 
-      .tagline {
-        font-size: 18px;
-        background-color: rgba(255, 255, 255, 0.15);
-        padding: 10px 20px;
-        border-radius: 30px;
-        display: inline-block;
-        margin-top: 15px;
-        backdrop-filter: blur(5px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
+      .hero-text p {
+        font-size: 1.125rem;
+        color: var(--gray-600);
+        margin-bottom: 2rem;
+        line-height: 1.8;
+        animation: fadeInUp 0.8s ease-out 0.4s both;
       }
 
-      .skill {
-        display: flex;
-        align-items: center;
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
 
-      .skill img {
+      .hero-image {
+        position: relative;
+        animation: fadeIn 1s ease-out 0.6s both;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .profile-card {
+        background: white;
+        border-radius: 20px;
+        padding: 3rem;
+        box-shadow: var(--shadow-xl);
+        position: relative;
+        overflow: hidden;
+        transform: perspective(1000px) rotateY(-5deg);
         transition: transform 0.3s ease;
       }
 
-      .skill:hover img {
-        transform: scale(1.2);
+      .profile-card:hover {
+        transform: perspective(1000px) rotateY(0deg);
       }
 
-      .content {
+      .profile-card::before {
+        content: "";
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        background: var(--gradient-primary);
+        border-radius: 20px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: -1;
+      }
+
+      .profile-card:hover::before {
+        opacity: 1;
+      }
+
+      .profile-img-container {
+        width: 200px;
+        height: 200px;
+        margin: 0 auto 2rem;
+        position: relative;
+      }
+
+      .profile-img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid white;
+        box-shadow: var(--shadow-lg);
+      }
+
+      .profile-img-ring {
+        position: absolute;
+        inset: -8px;
+        border-radius: 50%;
+        background: var(--gradient-primary);
+        z-index: -1;
+        animation: rotate 10s linear infinite;
+      }
+
+      @keyframes rotate {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .cta-buttons {
         display: flex;
-        background: var(--light-bg);
+        gap: 1rem;
+        animation: fadeInUp 0.8s ease-out 0.6s both;
+        flex-wrap: wrap;
       }
 
-      .sidebar {
-        width: 35%;
-        background-color: #f1f5f9;
-        padding: 30px;
-        border-right: 1px solid rgba(0, 0, 0, 0.05);
+      .btn {
+        padding: 0.875rem 2rem;
+        border-radius: 50px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        position: relative;
+        overflow: hidden;
       }
 
-      .main {
-        width: 65%;
-        padding: 30px 40px;
+      .btn-primary {
+        background: var(--gradient-primary);
+        color: white;
+        box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+      }
+
+      .btn-secondary {
         background: white;
+        color: var(--primary);
+        border: 2px solid var(--primary);
       }
 
-      a[href^="mailto"]:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 6px 20px rgba(115, 97, 251, 0.6);
+      .btn-secondary:hover {
+        background: var(--primary);
+        color: white;
+        transform: translateY(-2px);
+      }
+
+      /* Sections */
+      section {
+        padding: 5rem 0;
+        position: relative;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
       }
 
       .section-title {
-        color: var(--primary-color);
-        text-transform: uppercase;
-        font-size: 20px;
-        font-weight: 600;
-        margin-bottom: 20px;
+        font-size: 3rem;
+        font-weight: 800;
+        text-align: center;
+        margin-bottom: 3rem;
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
         position: relative;
-        padding-bottom: 10px;
-        display: flex;
-        align-items: center;
       }
 
-      .section-title::after {
+      .section-subtitle {
+        text-align: center;
+        color: var(--gray-600);
+        font-size: 1.125rem;
+        margin-top: -2rem;
+        margin-bottom: 3rem;
+      }
+
+      /* Experience Section */
+      .experience-timeline {
+        position: relative;
+        padding-left: 3rem;
+      }
+
+      .experience-timeline::before {
         content: "";
         position: absolute;
-        left: 0;
+        left: 15px;
+        top: 0;
         bottom: 0;
-        width: 50px;
-        height: 3px;
-        background-color: var(--primary-color);
-      }
-
-      .section-title i {
-        margin-right: 10px;
-        font-size: 22px;
-      }
-
-      .contact-item {
-        display: flex;
-        align-items: center;
-        margin-bottom: 15px;
-      }
-
-      .contact-icon {
-        width: 36px;
-        height: 36px;
-        background-color: var(--primary-color);
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-right: 15px;
-        color: white;
-        box-shadow: 0 3px 10px rgba(115, 97, 251, 0.3);
-      }
-
-      .skills-container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin-top: 20px;
-      }
-
-      .skill {
-        background-color: white;
-        border-radius: 8px;
-        padding: 10px 16px;
-        font-size: 14px;
-        display: flex;
-        align-items: center;
-        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-        transition: all 0.3s ease;
-        border-left: 3px solid transparent;
-      }
-
-      .skill.primary {
-        border-left-color: var(--primary-color);
-        font-weight: 600;
-      }
-
-      .skill:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-      }
-
-      .skill img {
-        width: 20px;
-        height: 20px;
-        margin-right: 8px;
+        width: 2px;
+        background: var(--gray-200);
       }
 
       .experience-item {
-        margin-bottom: 35px;
         position: relative;
-        padding-left: 25px;
+        margin-bottom: 3rem;
+        animation: slideInLeft 0.6s ease-out;
+      }
+
+      @keyframes slideInLeft {
+        from {
+          opacity: 0;
+          transform: translateX(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
       }
 
       .experience-item::before {
         content: "";
         position: absolute;
-        left: 0;
+        left: -45px;
         top: 0;
-        bottom: 0;
-        width: 3px;
-        background-color: #e2e8f0;
+        width: 30px;
+        height: 30px;
+        background: white;
+        border: 4px solid var(--primary);
+        border-radius: 50%;
+        box-shadow: var(--shadow-md);
       }
 
-      .experience-item::after {
-        content: "";
-        position: absolute;
-        left: -5px;
-        top: 0;
-        width: 14px;
-        height: 14px;
-        border-radius: 50%;
-        background-color: var(--primary-color);
-        border: 3px solid white;
-        box-shadow: 0 0 0 1px var(--primary-color);
+      .experience-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 16px;
+        box-shadow: var(--shadow-md);
+        transition: all 0.3s ease;
+        border-left: 4px solid var(--primary);
+      }
+
+      .experience-card:hover {
+        transform: translateX(10px);
+        box-shadow: var(--shadow-lg);
+      }
+
+      .experience-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        margin-bottom: 1rem;
+        flex-wrap: wrap;
+        gap: 1rem;
       }
 
       .experience-title {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 5px;
-        align-items: center;
-      }
-
-      .experience-title h3 {
-        font-size: 18px;
-        font-weight: 600;
-        margin: 0;
-        color: var(--text-color);
-      }
-
-      .experience-company {
-        font-weight: 500;
-        color: var(--primary-color);
-        margin-bottom: 5px;
-        display: flex;
-        align-items: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--gray-900);
       }
 
       .experience-date {
-        color: var(--light-text);
-        font-size: 14px;
-        background-color: var(--light-bg);
-        padding: 4px 10px;
-        border-radius: 12px;
-        display: inline-block;
+        background: var(--gray-100);
+        color: var(--gray-600);
+        padding: 0.375rem 1rem;
+        border-radius: 20px;
+        font-size: 0.875rem;
         font-weight: 500;
       }
 
-      .experience-details {
-        margin-top: 10px;
+      .experience-company {
+        color: var(--primary);
+        font-weight: 600;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
       }
 
-      .experience-details ul {
-        margin-top: 10px;
-        padding-left: 20px;
+      .experience-tasks {
+        list-style: none;
+        margin-top: 1rem;
       }
 
-      .experience-details li {
-        margin-bottom: 8px;
+      .experience-tasks li {
+        padding-left: 1.5rem;
+        margin-bottom: 0.75rem;
         position: relative;
+        color: var(--gray-600);
       }
 
-      .language-item {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 15px;
-        align-items: center;
+      .experience-tasks li::before {
+        content: "▸";
+        position: absolute;
+        left: 0;
+        color: var(--primary);
+        font-weight: bold;
       }
 
-      .language-name {
-        display: flex;
-        align-items: center;
+      .achievement-box {
+        background: linear-gradient(
+          135deg,
+          rgba(99, 102, 241, 0.1) 0%,
+          rgba(236, 72, 153, 0.1) 100%
+        );
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-top: 1.5rem;
+        border-left: 4px solid var(--accent);
       }
 
-      .language-level {
-        height: 8px;
-        width: 100px;
-        background-color: #e2e8f0;
-        border-radius: 4px;
-        overflow: hidden;
+      .achievement-box h4 {
+        color: var(--primary-dark);
+        margin-bottom: 0.5rem;
+        font-size: 1.125rem;
       }
 
-      .language-progress {
-        height: 100%;
-        background-color: var(--primary-color);
+      /* Skills Section */
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
       }
 
-      .strength-item {
-        background-color: white;
-        border-radius: 20px;
-        padding: 8px 16px;
-        display: inline-block;
-        margin-right: 8px;
-        margin-bottom: 8px;
-        font-size: 14px;
-        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+      .skill-category {
+        background: white;
+        padding: 2rem;
+        border-radius: 16px;
+        box-shadow: var(--shadow-md);
         transition: all 0.3s ease;
       }
 
-      .strength-item:hover {
-        background-color: var(--primary-color);
-        color: white;
-        transform: translateY(-2px);
+      .skill-category:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-lg);
       }
 
-      .about-me {
-        padding: 25px;
-        background-color: rgba(115, 97, 251, 0.05);
-        border-radius: 12px;
-        margin-bottom: 35px;
-        border-left: 4px solid var(--primary-color);
+      .skill-category h3 {
+        font-size: 1.25rem;
+        margin-bottom: 1.5rem;
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .skill-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+
+      .skill-tag {
+        background: var(--gray-100);
+        color: var(--gray-700);
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
         position: relative;
+        overflow: hidden;
       }
 
-      .about-me::before {
+      .skill-tag::before {
         content: "";
         position: absolute;
-        top: -10px;
-        left: 10px;
-        font-size: 60px;
-        color: rgba(115, 97, 251, 0.15);
-        font-family: serif;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: var(--gradient-primary);
+        transition: left 0.3s ease;
+        z-index: -1;
       }
 
-      /* Animation au survol */
-      .contact-item:hover .contact-icon {
-        transform: scale(1.1);
+      .skill-tag:hover {
+        color: white;
+        transform: scale(1.05);
+      }
+
+      .skill-tag:hover::before {
+        left: 0;
+      }
+
+      .skill-tag.primary {
+        background: var(--primary);
+        color: white;
+        font-weight: 600;
+      }
+
+      /* Contact Section */
+      .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        margin-bottom: 3rem;
+      }
+
+      .contact-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 16px;
+        box-shadow: var(--shadow-md);
+        text-align: center;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .contact-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: var(--gradient-primary);
+        transform: scaleX(0);
         transition: transform 0.3s ease;
       }
 
-      /* Badge "IA" */
-      .ai-badge {
-        display: inline-block;
-        background: linear-gradient(135deg, #7361fb, #e879f9);
+      .contact-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-lg);
+      }
+
+      .contact-card:hover::before {
+        transform: scaleX(1);
+      }
+
+      .contact-icon {
+        width: 60px;
+        height: 60px;
+        background: var(--gradient-primary);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+        font-size: 1.5rem;
         color: white;
-        padding: 4px 10px;
-        border-radius: 12px;
-        font-size: 12px;
+      }
+
+      .contact-card h3 {
+        color: var(--gray-900);
+        margin-bottom: 0.5rem;
+      }
+
+      .contact-card a {
+        color: var(--primary);
+        text-decoration: none;
         font-weight: 500;
-        margin-left: 10px;
-        vertical-align: middle;
+        transition: color 0.3s ease;
       }
 
-      .key-achievement {
-        background-color: rgba(115, 97, 251, 0.08);
-        border-radius: 8px;
-        padding: 10px 15px;
-        margin-top: 15px;
-        border-left: 3px solid var(--primary-color);
+      .contact-card a:hover {
+        color: var(--primary-dark);
       }
 
-      .key-achievement h4 {
-        margin: 0 0 5px 0;
-        color: var(--primary-color);
-        font-size: 16px;
+      /* Footer */
+      footer {
+        background: var(--gray-900);
+        color: white;
+        padding: 3rem 0;
+        text-align: center;
       }
 
-      /* Styles responsives détaillés */
-      @media (max-width: 1024px) {
-        .container {
-          max-width: 100%;
-          border-radius: 0;
-        }
+      .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
       }
 
+      .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .social-link {
+        width: 50px;
+        height: 50px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      .social-link:hover {
+        background: var(--primary);
+        transform: translateY(-3px);
+      }
+
+      /* Mobile Menu Toggle */
+      .mobile-menu-toggle {
+        display: none;
+        flex-direction: column;
+        gap: 4px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0.5rem;
+      }
+
+      .mobile-menu-toggle span {
+        width: 25px;
+        height: 3px;
+        background: var(--gray-700);
+        border-radius: 2px;
+        transition: all 0.3s ease;
+      }
+
+      /* Responsive Design */
       @media (max-width: 768px) {
-        .content {
+        .nav-links {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background: white;
           flex-direction: column;
+          padding: 2rem;
+          box-shadow: var(--shadow-lg);
         }
 
-        .sidebar,
-        .main {
-          width: 100%;
-          box-sizing: border-box;
+        .nav-links.active {
+          display: flex;
         }
 
-        .header-content {
-          flex-direction: column;
+        .mobile-menu-toggle {
+          display: flex;
+        }
+
+        .hero-content {
+          grid-template-columns: 1fr;
           text-align: center;
         }
 
-        .profile-img {
-          margin-right: 0;
-          margin-bottom: 20px;
+        .hero-text h1 {
+          font-size: 2.5rem;
         }
 
-        .header-text h1 {
-          font-size: 36px;
+        .hero-text h2 {
+          font-size: 1.25rem;
         }
 
-        .header-text h2 {
-          font-size: 18px;
+        .profile-card {
+          transform: none;
+          padding: 2rem;
         }
 
-        .tagline {
-          font-size: 16px;
-        }
-
-        .experience-title {
+        .experience-header {
           flex-direction: column;
-          align-items: flex-start;
-        }
-
-        .experience-date {
-          margin-top: 8px;
-        }
-      }
-
-      @media (max-width: 480px) {
-        .header {
-          padding: 25px 20px;
-        }
-
-        .profile-img {
-          width: 120px;
-          height: 120px;
-        }
-
-        .header-text h1 {
-          font-size: 28px;
-        }
-
-        .header-text h2 {
-          font-size: 16px;
-        }
-
-        .tagline {
-          font-size: 14px;
-          padding: 8px 15px;
-        }
-
-        .sidebar,
-        .main {
-          padding: 20px 15px;
         }
 
         .section-title {
-          font-size: 18px;
+          font-size: 2rem;
         }
 
-        .skill {
-          padding: 8px 12px;
-          font-size: 12px;
+        .cta-buttons {
+          justify-content: center;
         }
 
-        .strength-item {
-          font-size: 12px;
-          padding: 6px 12px;
-          margin-bottom: 6px;
+        .experience-timeline {
+          padding-left: 2rem;
         }
 
-        .contact-icon {
-          width: 32px;
-          height: 32px;
+        .experience-item::before {
+          left: -35px;
+          width: 20px;
+          height: 20px;
         }
+      }
 
-        .language-level {
-          width: 70px;
+      /* Additional Animations */
+      .fade-in {
+        animation: fadeIn 0.8s ease-out;
+      }
+
+      .slide-up {
+        animation: slideUp 0.8s ease-out;
+      }
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(50px);
         }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
 
-        .mistral-section {
-          padding: 20px 15px;
+      /* Language Indicator */
+      .language-indicator {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 1rem;
+      }
+
+      .language-flag {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      /* AI Badge */
+      .ai-badge {
+        display: inline-block;
+        background: var(--gradient-secondary);
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        margin-left: 0.5rem;
+        animation: pulse 2s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+
+      /* Loading Animation */
+      .loading-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        transition: opacity 0.5s ease;
+      }
+
+      .loading-container.loaded {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .loader {
+        width: 50px;
+        height: 50px;
+        border: 4px solid var(--gray-200);
+        border-top-color: var(--primary);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
         }
       }
     </style>
   </head>
   <body>
-    <div class="container">
-      <div class="header">
-        <div class="header-content">
-          <img
-            src="img/ma-photo.png"
-            alt="Photo de profil"
-            class="profile-img"
-          />
-          <div class="header-text">
-            <h1>VLAD ZAHARIA</h1>
-            <h2>STAFF ENGINEER MOBILE | EXPERT REACT NATIVE</h2>
-            <div class="tagline">
-              Passionné par l'IA & le Développement Mobile
-            </div>
-          </div>
-        </div>
+    <!-- Loading Screen -->
+    <div class="loading-container" id="loader">
+      <div class="loader"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+      <div class="nav-container">
+        <div class="nav-brand">VZ</div>
+        <button class="mobile-menu-toggle" id="menuToggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#home">Accueil</a></li>
+          <li><a href="#about">À propos</a></li>
+          <li><a href="#experience">Expérience</a></li>
+          <li><a href="#skills">Compétences</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
       </div>
+    </nav>
 
-      <div class="content">
-        <div class="sidebar">
-          <div class="section">
-            <h2 class="section-title">Contact</h2>
-            <div class="contact-item">
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png"
-                alt="WhatsApp"
-                style="width: 30px; height: 30px; margin-right: 12px"
-              />
-              <div>06 68 20 80 16</div>
-            </div>
-            <div class="contact-item">
-              <img
-                src="https://upload.wikimedia.org/wikipedia/fr/a/a7/Mail_%28Apple%29_logo.png"
-                alt="Email"
-                style="width: 28px; height: 28px; margin-right: 15px"
-              />
-              <div>
-                <a
-                  href="mailto:zahariavlad15@outlook.com"
-                  style="color: inherit; text-decoration: none"
-                >
-                  zahariavlad15@outlook.com
-                </a>
-              </div>
-            </div>
-            <div class="contact-item">
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png"
-                alt="LinkedIn"
-                style="width: 28px; height: 28px; margin-right: 15px"
-              />
-              <div>
-                <a
-                  href="https://www.linkedin.com/in/vladzahariaepitech"
-                  target="_blank"
-                  style="color: inherit; text-decoration: none"
-                  >/vladzahariaepitech</a
-                >
-              </div>
-            </div>
-            <div class="contact-item">
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
-                alt="GitHub"
-                style="width: 28px; height: 28px; margin-right: 15px"
-              />
-              <div>
-                <a
-                  href="https://github.com/vladzhra"
-                  target="_blank"
-                  style="color: inherit; text-decoration: none"
-                  >github.com/vladzhra</a
-                >
-              </div>
-            </div>
-          </div>
-
-          <!-- Section compétences techniques mise à jour avec des icônes -->
-          <div class="section">
-            <h2 class="section-title">Expertise Technique</h2>
-            <div class="skills-container">
-              <div class="skill primary">
-                <img
-                  src="https://cdn4.iconfinder.com/data/icons/logos-3/600/React.js_logo-512.png"
-                  alt="React Native logo"
-                  style="
-                    width: 18px;
-                    height: 18px;
-                    margin-right: 8px;
-                    vertical-align: middle;
-                  "
-                />
-                <strong>React Native</strong>
-              </div>
-              <div class="skill primary">
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png"
-                  alt="JavaScript logo"
-                  style="
-                    width: 18px;
-                    height: 18px;
-                    margin-right: 8px;
-                    vertical-align: middle;
-                  "
-                />
-                <strong>JavaScript</strong>
-              </div>
-              <div class="skill primary">
-                <img
-                  src="https://cdn.iconscout.com/icon/free/png-256/free-firebase-3521427-2944871.png"
-                  alt="Firebase logo"
-                  style="
-                    width: 18px;
-                    height: 18px;
-                    margin-right: 8px;
-                    vertical-align: middle;
-                  "
-                />
-                <strong>Firebase</strong>
-              </div>
-              <div class="skill primary">
-                <img
-                  src="https://cdn.iconscout.com/icon/free/png-256/free-vue-282497.png"
-                  alt="Vue.js logo"
-                  style="
-                    width: 18px;
-                    height: 18px;
-                    margin-right: 8px;
-                    vertical-align: middle;
-                  "
-                />
-                <strong>Vue.js</strong>
-              </div>
-              <div class="skill primary">
-                <img
-                  src="https://cdn.iconscout.com/icon/free/png-256/free-python-3521655-2945099.png"
-                  alt="Python logo"
-                  style="
-                    width: 18px;
-                    height: 18px;
-                    margin-right: 8px;
-                    vertical-align: middle;
-                  "
-                />
-                <strong>Python</strong>
-              </div>
-              <div class="skill primary">
-                <img
-                  src="https://cdn4.iconfinder.com/data/icons/logos-3/600/React.js_logo-512.png"
-                  alt="React.js logo"
-                  style="
-                    width: 18px;
-                    height: 18px;
-                    margin-right: 8px;
-                    vertical-align: middle;
-                  "
-                />
-                <strong>React.js</strong>
-              </div>
-              <div class="skill">
-                <img
-                  src="https://cdn.iconscout.com/icon/free/png-256/free-html5-40-1175193.png"
-                  alt="HTML/CSS logo"
-                  style="
-                    width: 18px;
-                    height: 18px;
-                    margin-right: 8px;
-                    vertical-align: middle;
-                  "
-                />
-                HTML/CSS
-              </div>
-              <div class="skill">
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/3/32/C%2B%2B_logo.png"
-                  alt="C/C++ logo"
-                  style="
-                    width: 18px;
-                    height: 18px;
-                    margin-right: 8px;
-                    vertical-align: middle;
-                  "
-                />
-                C/C++
-              </div>
-              <div class="skill">
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Docker_%28container_engine%29_logo_%28cropped%29.png"
-                  alt="Docker logo"
-                  style="
-                    width: 29px;
-                    height: 18px;
-                    margin-right: 8px;
-                    vertical-align: middle;
-                  "
-                />
-                Docker
-              </div>
-              <div class="skill">
-                <img
-                  src="https://cdn.iconscout.com/icon/free/png-256/free-aws-1869025-1583149.png"
-                  alt="AWS logo"
-                  style="
-                    width: 18px;
-                    height: 18px;
-                    margin-right: 8px;
-                    vertical-align: middle;
-                  "
-                />
-                AWS
-              </div>
-              <div class="skill">
-                <img
-                  src="https://cdn.iconscout.com/icon/free/png-256/free-azure-190760.png"
-                  alt="Azure logo"
-                  style="
-                    width: 18px;
-                    height: 18px;
-                    margin-right: 8px;
-                    vertical-align: middle;
-                  "
-                />
-                Azure
-              </div>
-              <div class="skill">
-                <img
-                  src="https://cdn.iconscout.com/icon/premium/png-256-thumb/ci-cd-5066396-4207354.png"
-                  alt="CI/CD logo"
-                  style="
-                    width: 18px;
-                    height: 18px;
-                    margin-right: 8px;
-                    vertical-align: middle;
-                  "
-                />
-                CI/CD
-              </div>
-              <div class="skill">
-                <img
-                  src="https://cdn.iconscout.com/icon/free/png-256/free-git-225996.png"
-                  alt="Git Flow logo"
-                  style="
-                    width: 18px;
-                    height: 18px;
-                    margin-right: 8px;
-                    vertical-align: middle;
-                  "
-                />
-                Git Flow
-              </div>
-            </div>
-          </div>
-
-          <div class="section">
-            <h2 class="section-title">Langues</h2>
-            <div class="language-item">
-              <div class="language-name">
-                <div>
-                  <img
-                    src="https://images.emojiterra.com/google/noto-emoji/unicode-16.0/color/1024px/1f1eb-1f1f7.png"
-                    alt="Drapeau français"
-                    style="
-                      width: 20px;
-                      height: auto;
-                      margin-right: 8px;
-                      vertical-align: middle;
-                    "
-                  />
-                  Français
-                </div>
-              </div>
-              <div class="language-level">
-                <div class="language-progress" style="width: 100%"></div>
-              </div>
-            </div>
-            <div class="language-item">
-              <div class="language-name">
-                <div>
-                  <img
-                    src="https://images.emojiterra.com/google/noto-emoji/unicode-15/color/512px/1f1ec-1f1e7.png"
-                    alt="Drapeau anglais"
-                    style="
-                      width: 20px;
-                      height: auto;
-                      margin-right: 8px;
-                      vertical-align: middle;
-                    "
-                  />
-                  Anglais
-                </div>
-              </div>
-              <div class="language-level">
-                <div class="language-progress" style="width: 100%"></div>
-              </div>
-            </div>
-            <div class="language-item">
-              <div class="language-name">
-                <div>
-                  <img
-                    src="https://images.emojiterra.com/google/noto-emoji/unicode-16.0/color/1024px/1f1f7-1f1f4.png"
-                    alt="Drapeau roumain"
-                    style="
-                      width: 20px;
-                      height: auto;
-                      margin-right: 8px;
-                      vertical-align: middle;
-                    "
-                  />
-                  Roumain
-                </div>
-              </div>
-              <div class="language-level">
-                <div class="language-progress" style="width: 100%"></div>
-              </div>
-            </div>
-            <div class="language-item">
-              <div class="language-name">
-                <div>
-                  <img
-                    src="https://images.emojiterra.com/google/noto-emoji/unicode-16.0/color/1024px/1f1ea-1f1f8.png"
-                    alt="Drapeau espagnol"
-                    style="
-                      width: 20px;
-                      height: auto;
-                      margin-right: 8px;
-                      vertical-align: middle;
-                    "
-                  />
-                  Espagnol
-                </div>
-              </div>
-              <div class="language-level">
-                <div class="language-progress" style="width: 70%"></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="section">
-            <h2 class="section-title">Soft Skills</h2>
-            <div>
-              <span class="strength-item">#Leadership</span>
-              <span class="strength-item">#Autonomie</span>
-              <span class="strength-item">#ProblemSolving</span>
-              <span class="strength-item">#CollaborationAgile</span>
-              <span class="strength-item">#MentorTechnique</span>
-              <span class="strength-item">#InnovationProduit</span>
-            </div>
-          </div>
-
-          <div class="section">
-            <h2 class="section-title">Activités</h2>
-            <ul>
-              <li>Formateur en développement mobile (cours hebdomadaires)</li>
-              <li>Bénévole à La Croix-Rouge depuis août 2021</li>
-              <li>
-                Participant au
-                <a
-                  href="https://www.linkedin.com/feed/update/urn:li:activity:6928769026403803136/"
-                  target="_blank"
-                  style="color: inherit"
-                  >Global Azure Bootcamp (2018, 2022)</a
-                >
-              </li>
-              <li>Contributeur actif aux communautés React Native</li>
-              <li>Mentor technique pour les étudiants en informatique</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="main">
-          <div class="about-me">
-            <p>
-              Étudiant en dernière année à Epitech Paris avec une passion
-              profonde pour le <strong>développement mobile</strong> et
-              <strong>l'intelligence artificielle</strong>. Je me forme
-              continuellement dans le domaine de l'IA et reste à jour sur les
-              dernières technologies. Avec une expérience avérée en React Native
-              et une solide formation en développement full-stack, j'apporte
-              adaptabilité, engagement pour la qualité et une approche
-              collaborative à chaque projet.
-            </p>
-          </div>
-
-          <div class="section">
-            <h2 class="section-title">Expérience Professionnelle</h2>
-
-            <div class="experience-item">
-              <div class="experience-title">
-                <h3>
-                  Co-fondateur & Lead Engineer
-                  <span class="ai-badge">IA</span>
-                </h3>
-                <div class="experience-date">2024 - Présent</div>
-              </div>
-              <div class="experience-company">TellWell</div>
-              <div class="experience-details">
-                <ul>
-                  <li>
-                    Architecture et développement complet d'une application
-                    React Native intégrant des modèles d'IA avancés
-                  </li>
-                  <li>
-                    Conception et implémentation de l'intégralité du back-end
-                    avec gestion des API, bases de données et infrastructure
-                    cloud
-                  </li>
-                  <li>
-                    Mise en place et maintenance de l'infrastructure Firebase
-                    (Authentication, Firestore, Storage, Cloud Functions) pour
-                    assurer performance et fiabilité
-                  </li>
-                  <li>
-                    Conception d'une interface utilisateur intuitive et
-                    performante avec focus sur l'expérience utilisateur
-                  </li>
-                  <li>
-                    Gestion du cycle complet de développement et déploiement sur
-                    App Store
-                  </li>
-                </ul>
-                <div class="key-achievement">
-                  <h4>Réalisation clé</h4>
-                  <p>
-                    Conception d'une architecture full-stack modulaire
-                    permettant l'intégration fluide de divers modèles d'IA et
-                    une synchronisation efficace avec le back-end Firebase,
-                    offrant une expérience utilisateur cohérente sur différents
-                    appareils mobiles.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div class="experience-item">
-              <div class="experience-title">
-                <h3>Développeur Full-Stack</h3>
-                <div class="experience-date">2022 - 2025</div>
-              </div>
-              <div class="experience-company">Callr</div>
-              <div class="experience-details">
-                <ul>
-                  <li>
-                    Direction de l'amélioration de l'UX/UI du site et des
-                    interfaces clients
-                  </li>
-                  <li>
-                    Développement et optimisation de composants Vue
-                    réutilisables à travers les projets
-                  </li>
-                  <li>
-                    Gestion de projets informatiques et supervision de deux
-                    stagiaires Epitech
-                  </li>
-                  <li>Contribution au développement de l'API et du SDK</li>
-                  <li>Technologies utilisées: Docker, JS, Vue.js, et PHP</li>
-                </ul>
-                <div class="key-achievement">
-                  <h4>Réalisation clé</h4>
-                  <p>
-                    Implémentation d'un système complet de topup fees et
-                    traduction intégrale du site en français et espagnol,
-                    améliorant ainsi l'accessibilité et l'expérience utilisateur
-                    à l'international.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div class="experience-item">
-              <div class="experience-title">
-                <h3>Développeur Full-Stack</h3>
-                <div class="experience-date">2024 (6 mois)</div>
-              </div>
-              <div class="experience-company">
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Rakuten_Global_Brand_Logo.svg/2560px-Rakuten_Global_Brand_Logo.svg.png"
-                  alt="Rakuten Logo"
-                  style="height: 20px; margin-right: 10px"
-                />
-              </div>
-              <div class="experience-details">
-                <ul>
-                  <li>
-                    Contribution majeure au développement du nouveau back office
-                    en équipe internationale Rakuten
-                  </li>
-                  <li>
-                    Développement de composants React performants et responsifs
-                    pour le backoffice
-                  </li>
-                  <li>
-                    Optimisation des performances frontend et réduction des
-                    temps de chargement avec Java
-                  </li>
-                  <li>
-                    Mise en place d'une stratégie de tests automatisés (Jest)
-                  </li>
-                  <li>
-                    Travail en méthodologie agile avec rituels Scrum quotidiens
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="experience-item">
-              <div class="experience-title">
-                <h3>Développeur Web & Mobile Freelance</h3>
-                <div class="experience-date">2023</div>
-              </div>
-              <div class="experience-company">Code Couture</div>
-              <div class="experience-details">
-                <ul>
-                  <li>
-                    Développement d'applications réactives en utilisant React et
-                    React Native
-                  </li>
-                  <li>
-                    Création du site web
-                    <a
-                      href="https://flh-expertise.com"
-                      target="_blank"
-                      style="color: inherit"
-                      >FLH Expertise</a
-                    >
-                    avec focus sur l'expérience utilisateur
-                  </li>
-                  <li>Optimisation SEO et performances web pour les clients</li>
-                  <li>
-                    Conseil en UX/UI et création d'interfaces utilisateur
-                    intuitives
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="section">
-            <h2 class="section-title">Formation</h2>
-            <div class="experience-item">
-              <div class="experience-title">
-                <h3>Master en Technologies de l'Information</h3>
-                <div class="experience-date">2021 - 2026</div>
-              </div>
-              <div
-                class="experience-company"
-                style="display: flex; align-items: center"
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1>Vlad Zaharia</h1>
+          <h2>Staff Engineer Mobile | Expert React Native</h2>
+          <p>
+            Passionné par l'IA et le développement mobile, je crée des
+            expériences utilisateur exceptionnelles en combinant innovation
+            technique et design intuitif.
+          </p>
+          <div class="cta-buttons">
+            <a href="#contact" class="btn btn-primary">
+              <span>Me contacter</span>
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
               >
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/2/2d/Epitech.png"
-                  alt="Logo Epitech"
-                  style="height: 20px; margin-right: 10px"
-                />
-                Epitech Paris & Barcelone
-              </div>
-              <div class="experience-details">
-                <ul>
-                  <li>
-                    Année d'Erasmus à Epitech Barcelone (2024-2025) avec
-                    spécialisation en IOT (Objets Connectés) et IA
-                  </li>
-                  <li>
-                    Leader d'un projet EIP (Epitech Innovative Project) :
-                    Conception et développement d'une solution technologique
-                    pour accompagner les personnes avec un handicap mental
-                    (autisme, TDAH) dans leur parcours d'insertion
-                    professionnelle et découverte de soi
-                  </li>
-                  <li>
-                    Management d'une équipe de 6 personnes avec méthodologie
-                    agile
-                  </li>
-                  <li>Lead Developer sur plusieurs projets majeurs</li>
-                </ul>
-                <div class="key-achievement">
-                  <div style="display: flex; align-items: center">
-                    <img
-                      src="https://images.emojiterra.com/google/noto-emoji/unicode-16.0/color/1024px/1f1ea-1f1f8.png"
-                      alt="Drapeau espagnol"
-                      style="
-                        width: 20px;
-                        height: auto;
-                        margin-right: 8px;
-                        vertical-align: middle;
-                      "
-                    />
-                    <h4 style="margin: 0">
-                      Expérience internationale – Barcelone
-                    </h4>
-                  </div>
-                  <p>
-                    Année d'études à l'international à Barcelone, marquée par
-                    l'immersion dans un environnement multiculturel, le
-                    développement de projets académiques et personnels, et
-                    l'élargissement de mon réseau professionnel. Cette
-                    expérience a renforcé mes compétences techniques en IoT et
-                    IA, ainsi que mon adaptabilité et mon ouverture à
-                    l'international.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div style="text-align: center; margin: 40px 0 20px 0">
-            <a
-              href="mailto:zahariavlad15@outlook.com"
-              style="
-                display: inline-block;
-                background: linear-gradient(
-                  135deg,
-                  var(--primary-color),
-                  var(--secondary-color)
-                );
-                color: white;
-                padding: 14px 28px;
-                text-decoration: none;
-                font-weight: 600;
-                font-size: 18px;
-                border-radius: 30px;
-                box-shadow: 0 4px 15px rgba(115, 97, 251, 0.4);
-                transition: all 0.3s ease;
-                border: none;
-                cursor: pointer;
-                text-transform: uppercase;
-                letter-spacing: 1px;
-              "
-            >
-              Me contacter
+                <path d="M5 12h14m-7-7l7 7-7 7" />
+              </svg>
+            </a>
+            <a href="#experience" class="btn btn-secondary">
+              Voir mon parcours
             </a>
           </div>
         </div>
+        <div class="hero-image">
+          <div class="profile-card">
+            <div class="profile-img-container">
+              <div class="profile-img-ring"></div>
+              <img
+                src="img/ma-photo.png"
+                alt="Vlad Zaharia"
+                class="profile-img"
+              />
+            </div>
+            <h3 style="text-align: center; margin-bottom: 1rem">
+              Vlad Zaharia
+            </h3>
+            <p
+              style="
+                text-align: center;
+                color: var(--gray-600);
+                margin-bottom: 1.5rem;
+              "
+            >
+              Étudiant Epitech Paris • 5ème année
+            </p>
+            <div class="language-indicator" style="justify-content: center">
+              <span style="font-size: 0.875rem; color: var(--gray-500)"
+                >Actuellement à</span
+              >
+              <img
+                src="https://flagcdn.com/es.svg"
+                alt="Espagne"
+                class="language-flag"
+              />
+              <span style="font-weight: 600">Barcelone</span>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" style="background: white">
+      <div class="container">
+        <h2 class="section-title">À propos de moi</h2>
+        <p class="section-subtitle">Développeur passionné et innovant</p>
+        <div style="max-width: 800px; margin: 0 auto; text-align: center">
+          <p
+            style="
+              font-size: 1.125rem;
+              line-height: 1.8;
+              color: var(--gray-600);
+              margin-bottom: 2rem;
+            "
+          >
+            Étudiant en dernière année à Epitech Paris avec une passion profonde
+            pour le <strong>développement mobile</strong> et
+            <strong>l'intelligence artificielle</strong>. Je me forme
+            continuellement dans le domaine de l'IA et reste à jour sur les
+            dernières technologies. Avec une expérience avérée en React Native
+            et une solide formation en développement full-stack, j'apporte
+            adaptabilité, engagement pour la qualité et une approche
+            collaborative à chaque projet.
+          </p>
+          <div
+            style="
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+              gap: 2rem;
+              margin-top: 3rem;
+            "
+          >
+            <div class="fade-in">
+              <div
+                style="font-size: 3rem; color: var(--primary); font-weight: 800"
+              >
+                5+
+              </div>
+              <div style="color: var(--gray-600)">Années d'expérience</div>
+            </div>
+            <div class="fade-in" style="animation-delay: 0.2s">
+              <div
+                style="font-size: 3rem; color: var(--primary); font-weight: 800"
+              >
+                15+
+              </div>
+              <div style="color: var(--gray-600)">Projets réalisés</div>
+            </div>
+            <div class="fade-in" style="animation-delay: 0.4s">
+              <div
+                style="font-size: 3rem; color: var(--primary); font-weight: 800"
+              >
+                4
+              </div>
+              <div style="color: var(--gray-600)">Langues parlées</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience">
+      <div class="container">
+        <h2 class="section-title">Expérience Professionnelle</h2>
+        <p class="section-subtitle">Mon parcours professionnel</p>
+
+        <div class="experience-timeline">
+          <!-- TellWell -->
+          <div class="experience-item">
+            <div class="experience-card">
+              <div class="experience-header">
+                <h3 class="experience-title">
+                  Co-fondateur & Lead Engineer
+                  <span class="ai-badge">IA</span>
+                </h3>
+                <span class="experience-date">2024 - Présent</span>
+              </div>
+              <div class="experience-company">TellWell</div>
+              <ul class="experience-tasks">
+                <li>
+                  Architecture et développement complet d'une application React
+                  Native intégrant des modèles d'IA avancés
+                </li>
+                <li>
+                  Conception et implémentation de l'intégralité du back-end avec
+                  gestion des API, bases de données et infrastructure cloud
+                </li>
+                <li>
+                  Mise en place et maintenance de l'infrastructure Firebase
+                  (Authentication, Firestore, Storage, Cloud Functions)
+                </li>
+                <li>
+                  Conception d'une interface utilisateur intuitive et
+                  performante avec focus sur l'expérience utilisateur
+                </li>
+                <li>
+                  Gestion du cycle complet de développement et déploiement sur
+                  App Store
+                </li>
+              </ul>
+              <div class="achievement-box">
+                <h4>Réalisation clé</h4>
+                <p>
+                  Conception d'une architecture full-stack modulaire permettant
+                  l'intégration fluide de divers modèles d'IA et une
+                  synchronisation efficace avec le back-end Firebase, offrant
+                  une expérience utilisateur cohérente sur différents appareils
+                  mobiles.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Callr -->
+          <div class="experience-item">
+            <div class="experience-card">
+              <div class="experience-header">
+                <h3 class="experience-title">Développeur Full-Stack</h3>
+                <span class="experience-date">2022 - 2025</span>
+              </div>
+              <div class="experience-company">Callr</div>
+              <ul class="experience-tasks">
+                <li>
+                  Direction de l'amélioration de l'UX/UI du site et des
+                  interfaces clients
+                </li>
+                <li>
+                  Développement et optimisation de composants Vue réutilisables
+                  à travers les projets
+                </li>
+                <li>
+                  Gestion de projets informatiques et supervision de deux
+                  stagiaires Epitech
+                </li>
+                <li>Contribution au développement de l'API et du SDK</li>
+                <li>Technologies utilisées: Docker, JS, Vue.js, et PHP</li>
+              </ul>
+              <div class="achievement-box">
+                <h4>Réalisation clé</h4>
+                <p>
+                  Implémentation d'un système complet de topup fees et
+                  traduction intégrale du site en français et espagnol,
+                  améliorant ainsi l'accessibilité et l'expérience utilisateur à
+                  l'international.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Rakuten -->
+          <div class="experience-item">
+            <div class="experience-card">
+              <div class="experience-header">
+                <h3 class="experience-title">Développeur Full-Stack</h3>
+                <span class="experience-date">2024 (6 mois)</span>
+              </div>
+              <div class="experience-company">
+                <svg
+                  width="100"
+                  height="20"
+                  viewBox="0 0 100 20"
+                  fill="currentColor"
+                >
+                  <text
+                    x="0"
+                    y="15"
+                    font-family="Arial, sans-serif"
+                    font-size="16"
+                    font-weight="bold"
+                  >
+                    Rakuten
+                  </text>
+                </svg>
+              </div>
+              <ul class="experience-tasks">
+                <li>
+                  Contribution majeure au développement du nouveau back office
+                  en équipe internationale Rakuten
+                </li>
+                <li>
+                  Développement de composants React performants et responsifs
+                  pour le backoffice
+                </li>
+                <li>
+                  Optimisation des performances frontend et réduction des temps
+                  de chargement avec Java
+                </li>
+                <li>
+                  Mise en place d'une stratégie de tests automatisés (Jest)
+                </li>
+                <li>
+                  Travail en méthodologie agile avec rituels Scrum quotidiens
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Code Couture -->
+          <div class="experience-item">
+            <div class="experience-card">
+              <div class="experience-header">
+                <h3 class="experience-title">
+                  Développeur Web & Mobile Freelance
+                </h3>
+                <span class="experience-date">2023</span>
+              </div>
+              <div class="experience-company">Code Couture</div>
+              <ul class="experience-tasks">
+                <li>
+                  Développement d'applications réactives en utilisant React et
+                  React Native
+                </li>
+                <li>
+                  Création du site web FLH Expertise avec focus sur l'expérience
+                  utilisateur
+                </li>
+                <li>Optimisation SEO et performances web pour les clients</li>
+                <li>
+                  Conseil en UX/UI et création d'interfaces utilisateur
+                  intuitives
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" style="background: white">
+      <div class="container">
+        <h2 class="section-title">Compétences</h2>
+        <p class="section-subtitle">Technologies et expertises</p>
+
+        <div class="skills-grid">
+          <!-- Technologies Frontend -->
+          <div class="skill-category">
+            <h3>
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"
+                />
+              </svg>
+              Frontend & Mobile
+            </h3>
+            <div class="skill-tags">
+              <span class="skill-tag primary">React Native</span>
+              <span class="skill-tag primary">React.js</span>
+              <span class="skill-tag primary">Vue.js</span>
+              <span class="skill-tag">JavaScript</span>
+              <span class="skill-tag">HTML/CSS</span>
+            </div>
+          </div>
+
+          <!-- Technologies Backend -->
+          <div class="skill-category">
+            <h3>
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+                />
+              </svg>
+              Backend & Cloud
+            </h3>
+            <div class="skill-tags">
+              <span class="skill-tag primary">Firebase</span>
+              <span class="skill-tag primary">Python</span>
+              <span class="skill-tag">Node.js</span>
+              <span class="skill-tag">AWS</span>
+              <span class="skill-tag">Azure</span>
+              <span class="skill-tag">Docker</span>
+            </div>
+          </div>
+
+          <!-- Outils & Méthodologies -->
+          <div class="skill-category">
+            <h3>
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"
+                />
+              </svg>
+              Outils & DevOps
+            </h3>
+            <div class="skill-tags">
+              <span class="skill-tag">Git Flow</span>
+              <span class="skill-tag">CI/CD</span>
+              <span class="skill-tag">Agile/Scrum</span>
+              <span class="skill-tag">Jest</span>
+              <span class="skill-tag">C/C++</span>
+            </div>
+          </div>
+
+          <!-- Soft Skills -->
+          <div class="skill-category">
+            <h3>
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"
+                />
+              </svg>
+              Soft Skills
+            </h3>
+            <div class="skill-tags">
+              <span class="skill-tag">Leadership</span>
+              <span class="skill-tag">Autonomie</span>
+              <span class="skill-tag">Problem Solving</span>
+              <span class="skill-tag">Collaboration Agile</span>
+              <span class="skill-tag">Mentor Technique</span>
+              <span class="skill-tag">Innovation Produit</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Languages -->
+        <div style="margin-top: 4rem">
+          <h3
+            style="
+              text-align: center;
+              font-size: 1.5rem;
+              margin-bottom: 2rem;
+              color: var(--gray-800);
+            "
+          >
+            Langues
+          </h3>
+          <div
+            style="
+              max-width: 600px;
+              margin: 0 auto;
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+              gap: 1.5rem;
+            "
+          >
+            <div
+              style="
+                background: white;
+                padding: 1.5rem;
+                border-radius: 12px;
+                box-shadow: var(--shadow-md);
+              "
+            >
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 0.75rem;
+                  margin-bottom: 0.75rem;
+                "
+              >
+                <img
+                  src="https://flagcdn.com/fr.svg"
+                  alt="Français"
+                  style="width: 30px; height: 20px; border-radius: 4px"
+                />
+                <span style="font-weight: 600">Français</span>
+              </div>
+              <div
+                style="
+                  background: var(--gray-200);
+                  height: 8px;
+                  border-radius: 4px;
+                  overflow: hidden;
+                "
+              >
+                <div
+                  style="
+                    background: var(--gradient-primary);
+                    height: 100%;
+                    width: 100%;
+                  "
+                ></div>
+              </div>
+              <span style="font-size: 0.875rem; color: var(--gray-500)"
+                >Natif</span
+              >
+            </div>
+            <div
+              style="
+                background: white;
+                padding: 1.5rem;
+                border-radius: 12px;
+                box-shadow: var(--shadow-md);
+              "
+            >
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 0.75rem;
+                  margin-bottom: 0.75rem;
+                "
+              >
+                <img
+                  src="https://flagcdn.com/gb.svg"
+                  alt="Anglais"
+                  style="width: 30px; height: 20px; border-radius: 4px"
+                />
+                <span style="font-weight: 600">Anglais</span>
+              </div>
+              <div
+                style="
+                  background: var(--gray-200);
+                  height: 8px;
+                  border-radius: 4px;
+                  overflow: hidden;
+                "
+              >
+                <div
+                  style="
+                    background: var(--gradient-primary);
+                    height: 100%;
+                    width: 100%;
+                  "
+                ></div>
+              </div>
+              <span style="font-size: 0.875rem; color: var(--gray-500)"
+                >Bilingue</span
+              >
+            </div>
+            <div
+              style="
+                background: white;
+                padding: 1.5rem;
+                border-radius: 12px;
+                box-shadow: var(--shadow-md);
+              "
+            >
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 0.75rem;
+                  margin-bottom: 0.75rem;
+                "
+              >
+                <img
+                  src="https://flagcdn.com/ro.svg"
+                  alt="Roumain"
+                  style="width: 30px; height: 20px; border-radius: 4px"
+                />
+                <span style="font-weight: 600">Roumain</span>
+              </div>
+              <div
+                style="
+                  background: var(--gray-200);
+                  height: 8px;
+                  border-radius: 4px;
+                  overflow: hidden;
+                "
+              >
+                <div
+                  style="
+                    background: var(--gradient-primary);
+                    height: 100%;
+                    width: 100%;
+                  "
+                ></div>
+              </div>
+              <span style="font-size: 0.875rem; color: var(--gray-500)"
+                >Natif</span
+              >
+            </div>
+            <div
+              style="
+                background: white;
+                padding: 1.5rem;
+                border-radius: 12px;
+                box-shadow: var(--shadow-md);
+              "
+            >
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 0.75rem;
+                  margin-bottom: 0.75rem;
+                "
+              >
+                <img
+                  src="https://flagcdn.com/es.svg"
+                  alt="Espagnol"
+                  style="width: 30px; height: 20px; border-radius: 4px"
+                />
+                <span style="font-weight: 600">Espagnol</span>
+              </div>
+              <div
+                style="
+                  background: var(--gray-200);
+                  height: 8px;
+                  border-radius: 4px;
+                  overflow: hidden;
+                "
+              >
+                <div
+                  style="
+                    background: var(--gradient-primary);
+                    height: 100%;
+                    width: 70%;
+                  "
+                ></div>
+              </div>
+              <span style="font-size: 0.875rem; color: var(--gray-500)"
+                >Intermédiaire</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education & Activities Section -->
+    <section id="education">
+      <div class="container">
+        <h2 class="section-title">Formation & Activités</h2>
+        <p class="section-subtitle">
+          Mon parcours académique et engagement social
+        </p>
+
+        <div
+          style="
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 3rem;
+          "
+        >
+          <!-- Education -->
+          <div>
+            <h3
+              style="
+                font-size: 1.5rem;
+                margin-bottom: 2rem;
+                color: var(--gray-800);
+              "
+            >
+              Formation
+            </h3>
+            <div class="experience-card">
+              <div class="experience-header">
+                <h3 class="experience-title">
+                  Master en Technologies de l'Information
+                </h3>
+                <span class="experience-date">2021 - 2026</span>
+              </div>
+              <div class="experience-company">
+                <svg
+                  width="80"
+                  height="20"
+                  viewBox="0 0 80 20"
+                  fill="currentColor"
+                >
+                  <text
+                    x="0"
+                    y="15"
+                    font-family="Arial, sans-serif"
+                    font-size="14"
+                    font-weight="bold"
+                  >
+                    Epitech
+                  </text>
+                </svg>
+                Paris & Barcelone
+              </div>
+              <ul class="experience-tasks">
+                <li>
+                  Année d'Erasmus à Epitech Barcelone (2024-2025) avec
+                  spécialisation en IOT et IA
+                </li>
+                <li>
+                  Leader d'un projet EIP : Solution technologique pour
+                  accompagner les personnes avec un handicap mental
+                </li>
+                <li>
+                  Management d'une équipe de 6 personnes avec méthodologie agile
+                </li>
+                <li>Lead Developer sur plusieurs projets majeurs</li>
+              </ul>
+              <div class="achievement-box">
+                <h4>🇪🇸 Expérience internationale – Barcelone</h4>
+                <p>
+                  Année d'études à l'international à Barcelone, marquée par
+                  l'immersion dans un environnement multiculturel, le
+                  développement de projets académiques et personnels, et
+                  l'élargissement de mon réseau professionnel.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Activities -->
+          <div>
+            <h3
+              style="
+                font-size: 1.5rem;
+                margin-bottom: 2rem;
+                color: var(--gray-800);
+              "
+            >
+              Activités & Engagements
+            </h3>
+            <div style="display: flex; flex-direction: column; gap: 1.5rem">
+              <div class="experience-card" style="padding: 1.5rem">
+                <h4 style="color: var(--primary); margin-bottom: 0.5rem">
+                  🎓 Formateur en développement mobile
+                </h4>
+                <p style="color: var(--gray-600)">
+                  Cours hebdomadaires pour transmettre ma passion du
+                  développement
+                </p>
+              </div>
+              <div class="experience-card" style="padding: 1.5rem">
+                <h4 style="color: var(--primary); margin-bottom: 0.5rem">
+                  🏥 Bénévole à La Croix-Rouge
+                </h4>
+                <p style="color: var(--gray-600)">
+                  Depuis août 2021 - Engagement social et humanitaire
+                </p>
+              </div>
+              <div class="experience-card" style="padding: 1.5rem">
+                <h4 style="color: var(--primary); margin-bottom: 0.5rem">
+                  ☁️ Global Azure Bootcamp
+                </h4>
+                <p style="color: var(--gray-600)">
+                  Participant actif aux éditions 2018 et 2022
+                </p>
+              </div>
+              <div class="experience-card" style="padding: 1.5rem">
+                <h4 style="color: var(--primary); margin-bottom: 0.5rem">
+                  💻 Contributeur React Native
+                </h4>
+                <p style="color: var(--gray-600)">
+                  Participation active aux communautés open source
+                </p>
+              </div>
+              <div class="experience-card" style="padding: 1.5rem">
+                <h4 style="color: var(--primary); margin-bottom: 0.5rem">
+                  🤝 Mentor technique
+                </h4>
+                <p style="color: var(--gray-600)">
+                  Accompagnement d'étudiants en informatique
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section
+      id="contact"
+      style="
+        background: linear-gradient(
+          135deg,
+          rgba(99, 102, 241, 0.05) 0%,
+          rgba(236, 72, 153, 0.05) 100%
+        );
+      "
+    >
+      <div class="container">
+        <h2 class="section-title">Contact</h2>
+        <p class="section-subtitle">Restons en contact</p>
+
+        <div class="contact-grid">
+          <div class="contact-card">
+            <div class="contact-icon">📱</div>
+            <h3>Téléphone</h3>
+            <p><a href="tel:+33668208016">06 68 20 80 16</a></p>
+          </div>
+          <div class="contact-card">
+            <div class="contact-icon">✉️</div>
+            <h3>Email</h3>
+            <p>
+              <a href="mailto:zahariavlad15@outlook.com"
+                >zahariavlad15@outlook.com</a
+              >
+            </p>
+          </div>
+          <div class="contact-card">
+            <div class="contact-icon">💼</div>
+            <h3>LinkedIn</h3>
+            <p>
+              <a
+                href="https://www.linkedin.com/in/vladzahariaepitech"
+                target="_blank"
+                >/vladzahariaepitech</a
+              >
+            </p>
+          </div>
+          <div class="contact-card">
+            <div class="contact-icon">🐙</div>
+            <h3>GitHub</h3>
+            <p>
+              <a href="https://github.com/vladzhra" target="_blank"
+                >github.com/vladzhra</a
+              >
+            </p>
+          </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 4rem">
+          <a
+            href="mailto:zahariavlad15@outlook.com"
+            class="btn btn-primary"
+            style="font-size: 1.125rem; padding: 1rem 3rem"
+          >
+            Envoyez-moi un message
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-content">
+        <div class="social-links">
+          <a
+            href="https://www.linkedin.com/in/vladzahariaepitech"
+            target="_blank"
+            class="social-link"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
+              />
+            </svg>
+          </a>
+          <a
+            href="https://github.com/vladzhra"
+            target="_blank"
+            class="social-link"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+              />
+            </svg>
+          </a>
+          <a href="mailto:zahariavlad15@outlook.com" class="social-link">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M0 3v18h24v-18h-24zm21.518 2l-9.518 7.713-9.518-7.713h19.036zm-19.518 14v-11.817l10 8.104 10-8.104v11.817h-20z"
+              />
+            </svg>
+          </a>
+        </div>
+        <p style="color: var(--gray-400); margin-top: 2rem">
+          © 2025 Vlad Zaharia. Tous droits réservés.
+        </p>
+      </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+      // Loading animation
+      window.addEventListener("load", function () {
+        setTimeout(() => {
+          document.getElementById("loader").classList.add("loaded");
+        }, 500);
+      });
+
+      // Mobile menu toggle
+      const menuToggle = document.getElementById("menuToggle");
+      const navLinks = document.getElementById("navLinks");
+
+      menuToggle.addEventListener("click", function () {
+        navLinks.classList.toggle("active");
+      });
+
+      // Navbar scroll effect
+      const navbar = document.getElementById("navbar");
+      window.addEventListener("scroll", function () {
+        if (window.scrollY > 50) {
+          navbar.classList.add("scrolled");
+        } else {
+          navbar.classList.remove("scrolled");
+        }
+      });
+
+      // Smooth scrolling
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+            // Close mobile menu if open
+            navLinks.classList.remove("active");
+          }
+        });
+      });
+
+      // Intersection Observer for animations
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+
+      const observer = new IntersectionObserver(function (entries) {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0)";
+          }
+        });
+      }, observerOptions);
+
+      // Observe all sections
+      document.querySelectorAll("section").forEach((section) => {
+        section.style.opacity = "0";
+        section.style.transform = "translateY(30px)";
+        section.style.transition = "all 0.8s ease-out";
+        observer.observe(section);
+      });
+    </script>
   </body>
 </html>
